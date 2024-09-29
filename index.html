@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoWallet</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 20px;
+        }
+        header {
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3498db;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        .nav-links li {
+            margin-left: 1rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+        }
+        main {
+            padding: 2rem 0;
+        }
+        .tab-container {
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .tab-buttons {
+            display: flex;
+            background: #f1f1f1;
+        }
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            flex: 1;
+            transition: background-color 0.3s;
+        }
+        .tab-button.active {
+            background: #fff;
+            font-weight: bold;
+        }
+        .tab-content {
+            padding: 2rem;
+        }
+        .card {
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .card h2 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .balance {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 0.5rem;
+        }
+        .usd-balance {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        .transaction {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .transaction:last-child {
+            border-bottom: none;
+        }
+        .transaction-details h3 {
+            margin-bottom: 0.25rem;
+        }
+        .transaction-amount {
+            font-weight: bold;
+        }
+        .received {
+            color: #2ecc71;
+        }
+        .sent {
+            color: #e74c3c;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 0.5rem;
+        }
+        input {
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #bdc3c7;
+            border-radius: 3px;
+        }
+        button {
+            background: #3498db;
+            color: #fff;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        footer {
+            background: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">CryptoWallet</a>
+            <ul class="nav-links">
+                <li><a href="#" data-tab="dashboard">Dashboard</a></li>
+                <li><a href="#" data-tab="send">Send</a></li>
+                <li><a href="#" data-tab="history">History</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="dashboard">Dashboard</button>
+                <button class="tab-button" data-tab="send">Send</button>
+                <button class="tab-button" data-tab="history">History</button>
+            </div>
+            <div class="tab-content">
+                <div id="dashboard" class="tab-pane active">
+                    <div class="card">
+                        <h2>Wallet Balance</h2>
+                        <div class="balance">1.23456789 BTC</div>
+                        <div class="usd-balance">≈ $37,654.32 USD</div>
+                    </div>
+                    <div class="card">
+                        <h2>Recent Transactions</h2>
+                        <div class="transaction">
+                            <div class="transaction-details">
+                                <h3>Received</h3>
+                                <p>2023-05-05</p>
+                            </div>
+                            <div class="transaction-amount received">+0.3 BTC</div>
+                        </div>
+                        <div class="transaction">
+                            <div class="transaction-details">
+                                <h3>Sent</h3>
+                                <p>2023-05-03</p>
+                            </div>
+                            <div class="transaction-amount sent">-0.2 BTC</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="send" class="tab-pane">
+                    <div class="card">
+                        <h2>Send Cryptocurrency</h2>
+                        <form id="send-form">
+                            <label for="recipient">Recipient Address</label>
+                            <input type="text" id="recipient" placeholder="Enter wallet address" required>
+                            <label for="amount">Amount (BTC)</label>
+                            <input type="number" id="amount" placeholder="0.00000000" step="0.00000001" required>
+                            <button type="submit">Send</button>
+                        </form>
+                    </div>
+                </div>
+                <div id="history" class="tab-pane">
+                    <div class="card">
+                        <h2>Transaction History</h2>
+                        <div class="transaction">
+                            <div class="transaction-details">
+                                <h3>Received from Alice</h3>
+                                <p>2023-05-05</p>
+                            </div>
+                            <div class="transaction-amount received">+0.3 BTC</div>
+                        </div>
+                        <div class="transaction">
+                            <div class="transaction-details">
+                                <h3>Sent to Bob</h3>
+                                <p>2023-05-03</p>
+                            </div>
+                            <div class="transaction-amount sent">-0.2 BTC</div>
+                        </div>
+                        <div class="transaction">
+                            <div class="transaction-details">
+                                <h3>Received from Charlie</h3>
+                                <p>2023-05-01</p>
+                            </div>
+                            <div class="transaction-amount received">+0.5 BTC</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 CryptoWallet. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        function showTab(tabId) {
+            tabButtons.forEach(button => {
+                button.classList.toggle('active', button.dataset.tab === tabId);
+            });
+            tabPanes.forEach(pane => {
+                pane.classList.toggle('active', pane.id === tabId);
+            });
+        }
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => showTab(button.dataset.tab));
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showTab(link.dataset.tab);
+            });
+        });
+
+        // Send form functionality (mock)
+        const sendForm = document.getElementById('send-form');
+        sendForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const recipient = document.getElementById('recipient').value;
+            const amount = document.getElementById('amount').value;
+            alert(`Transaction sent!\nRecipient: ${recipient}\nAmount: ${amount} BTC`);
+            sendForm.reset();
+        });
+
+        // Initialize with dashboard tab active
+        showTab('dashboard');
+    </script>
+</body>
+</html>
